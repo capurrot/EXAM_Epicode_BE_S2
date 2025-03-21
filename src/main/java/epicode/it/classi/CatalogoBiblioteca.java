@@ -1,24 +1,24 @@
 package epicode.it.classi;
 
 public abstract class CatalogoBiblioteca {
-    private String codiceISBN;
+    private String codiceIsbn;
     private String titolo;
     private int annoPubblicazione;
     private int numeroPagine;
 
-    public CatalogoBiblioteca(String codiceISBN, String titolo, int annoPubblicazione, int numeroPagine) {
-        this.codiceISBN = codiceISBN;
+    public CatalogoBiblioteca(String codiceIsbn, String titolo, int annoPubblicazione, int numeroPagine) {
+        this.codiceIsbn = codiceIsbn;
         this.titolo = titolo;
         this.annoPubblicazione = annoPubblicazione;
         this.numeroPagine = numeroPagine;
     }
 
-    public String getCodiceISBN() {
-        return codiceISBN;
+    public String getcodiceIsbn() {
+        return codiceIsbn;
     }
 
-    public void setCodiceISBN(String codiceISBN) {
-        this.codiceISBN = codiceISBN;
+    public void setcodiceIsbn(String codiceIsbn) {
+        this.codiceIsbn = codiceIsbn;
     }
 
     public String getTitolo() {

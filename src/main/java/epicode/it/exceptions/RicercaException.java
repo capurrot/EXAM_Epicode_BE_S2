@@ -1,7 +1,7 @@
 package epicode.it.exceptions;
 
-public class RicercaException extends RuntimeException {
-    public RicercaException(String message) {
-        super(message);
+public class RicercaException extends Exception {
+    public RicercaException() {
+        super("ISBN non presente nel catalogo!");
     }
 }

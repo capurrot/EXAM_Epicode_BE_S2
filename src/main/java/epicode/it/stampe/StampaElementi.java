@@ -6,14 +6,14 @@ import epicode.it.classi.Riviste;
 
 import java.util.List;
 
-public class StampaCatalogo {
+public class StampaElementi {
 
-    public static void stampaListaCatalogo(List<CatalogoBiblioteca> catalogo) {
-        catalogo.stream().forEach(StampaCatalogo::stampaElemento);
+    public static void stampaListaElementi(List<CatalogoBiblioteca> catalogo) {
+        catalogo.stream().forEach(StampaElementi::stampaListaElementi);
     }
 
-    public static void stampaElemento(CatalogoBiblioteca elemento) {
-        System.out.println("Codice ISBN: " + elemento.getCodiceISBN());
+    public static void stampaListaElementi(CatalogoBiblioteca elemento) {
+        System.out.println("Codice ISBN: " + elemento.getcodiceIsbn());
         System.out.println("Titolo: " + elemento.getTitolo());
         System.out.println("Anno di pubblicazione: " + elemento.getAnnoPubblicazione());
         System.out.println("Numero di pagine: " + elemento.getNumeroPagine());
@@ -26,7 +26,6 @@ public class StampaCatalogo {
             System.out.println("Tipo: Rivista");
             System.out.println("Periodicità: " + rivista.getPeriodicita());
         }
-
         System.out.println();
     }
 }

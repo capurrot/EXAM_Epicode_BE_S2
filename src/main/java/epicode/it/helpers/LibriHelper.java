@@ -8,7 +8,7 @@ import java.util.List;
 
 public class LibriHelper {
     //inserisco una lista di libri che vanno ad alimentare il catalogo della biblioteca
-    List<CatalogoBiblioteca> catalogo = List.of(
+    List<CatalogoBiblioteca> catalogoLibri = List.of(
             new Libri("1234", "Il Signore degli Anelli", 1954, 1200, "J.R.R. Tolkien", "Fantasy"),
             new Libri("1235", "1984", 1949, 328, "George Orwell", "Distopia"),
             new Libri("1236", "Il Codice da Vinci", 2003, 689, "Dan Brown", "Thriller"),
@@ -23,11 +23,7 @@ public class LibriHelper {
             new Libri("1245", "Il Signore degli Anelli", 1954, 1170, "J.R.R. Tolkien", "Fantasy")
     );
 
-    public List<CatalogoBiblioteca> getCatalogo() {
-        return catalogo;
-    }
-
-    public void setCatalogo(List<CatalogoBiblioteca> catalogo) {
-        this.catalogo = catalogo;
+    public List<CatalogoBiblioteca> getCatalogoLibri() {
+        return catalogoLibri;
     }
 }

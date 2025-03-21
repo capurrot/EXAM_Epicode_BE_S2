@@ -1,11 +1,12 @@
 package epicode.it.archive;
 
+import epicode.it.classi.CatalogoBiblioteca;
 import epicode.it.classi.Libri;
 import epicode.it.classi.Periodicita;
 import epicode.it.classi.Riviste;
 import epicode.it.helpers.LibriHelper;
 import epicode.it.helpers.RivisteHelper;
-import epicode.it.stampe.StampaCatalogo;
+import epicode.it.stampe.StampaElementi;
 
 import java.util.Scanner;
 
@@ -15,8 +16,8 @@ public class Main {
         LibriHelper libriHelper = new LibriHelper();
         RivisteHelper rivisteHelper = new RivisteHelper();
         Archivio archivio = new Archivio();
-        archivio.setCatalogo(libriHelper.getCatalogo());
-        archivio.setCatalogo(rivisteHelper.getCatalogo());
+        archivio.getCatalogoArchivio().addAll(libriHelper.getCatalogoLibri());
+        archivio.getCatalogoArchivio().addAll(rivisteHelper.getCatalogoRiviste());
 
         System.out.println("########################################################");
         System.out.println("############ BENVENUTO NELLA MIA BIBLIOTECA ############");
@@ -48,23 +49,26 @@ public class Main {
                     int scelta2 = scanner.nextInt();
                     if (scelta2 == 1) {
                         System.out.println("Inserisci il codice ISBN: ");
-                        String codiceISBN = scanner.next();
+                        String codiceIsbnAdd = scanner.next();
                         System.out.println("Inserisci il titolo: ");
-                        String titolo = scanner.next();
+                        scanner.nextLine();
+                        String titolo = scanner.nextLine();
                         System.out.println("Inserisci l'anno di pubblicazione: ");
                         int annoPubblicazione = scanner.nextInt();
                         System.out.println("Inserisci il numero di pagine: ");
                         int numeroPagine = scanner.nextInt();
                         System.out.println("Inserisci l'autore: ");
-                        String autore = scanner.next();
+                        scanner.nextLine();
+                        String autore = scanner.nextLine();
                         System.out.println("Inserisci il genere: ");
                         String genere = scanner.next();
-                        archivio.aggiungiElemento(new Libri(codiceISBN, titolo, annoPubblicazione, numeroPagine, autore, genere));
+                        archivio.aggiungiElemento(new Libri(codiceIsbnAdd, titolo, annoPubblicazione, numeroPagine, autore, genere));
                     } else if (scelta2 == 2) {
                         System.out.println("Inserisci il codice ISBN: ");
-                        String codiceISBN = scanner.next();
+                        String codiceIsbnAdd = scanner.next();
                         System.out.println("Inserisci il titolo: ");
-                        String titolo = scanner.next();
+                        scanner.nextLine();
+                        String titolo = scanner.nextLine();
                         System.out.println("Inserisci l'anno di pubblicazione: ");
                         int annoPubblicazione = scanner.nextInt();
                         System.out.println("Inserisci il numero di pagine: ");
@@ -86,38 +90,49 @@ public class Main {
                                 System.out.println("Scelta non valida");
                                 break;
                         }
-                        archivio.aggiungiElemento(new Riviste(codiceISBN, titolo, annoPubblicazione, numeroPagine, miaPeriodicita));
+                        archivio.aggiungiElemento(new Riviste(codiceIsbnAdd, titolo, annoPubblicazione, numeroPagine, miaPeriodicita));
                     } else {
                         System.out.println("Scelta non valida");
                     }
                     break;
                 case 2:
                     System.out.println("Hai scelto di rimuovere un elemento dal catalogo: inserisci il codice ISBN: ");
+                    String codiceIsbnRemove = scanner.next();
+                    archivio.rimuoviElemento(codiceIsbnRemove);
                     break;
                 case 3:
                     System.out.println("Hai scelto di modificare un elemento del catalogo: inserisci il codice ISBN: ");
-                    String codiceISBN = scanner.next();
-                    //controllo se l'elemento è un libro o una rivista
-                    if (archivio.ricercaElemento(codiceISBN) instanceof Libri) {
-                        System.out.println("Hai scelto di modificare un libro: inserisci il titolo: ");
-                        String titolo = scanner.next();
-                        System.out.println("Inserisci l'anno di pubblicazione: ");
+                    String codiceIsbnModify = scanner.next();
+                    System.out.println("L'elemento che si vuole modificare è: ");
+                    StampaElementi.stampaListaElementi((CatalogoBiblioteca) archivio.tipoElemento(codiceIsbnModify));
+                    int tipoElemento = 0;
+                    if (archivio.tipoElemento(codiceIsbnModify) instanceof Libri) {
+                        tipoElemento = 1;
+                        System.out.println("Stai modificando un Libro: ");
+                        System.out.println("Modifica il titolo: ");
+                        scanner.nextLine();
+                        String titolo = scanner.nextLine();
+                        System.out.println("Modifica l'anno di pubblicazione: ");
                         int annoPubblicazione = scanner.nextInt();
-                        System.out.println("Inserisci il numero di pagine: ");
+                        System.out.println("Modifica il numero di pagine: ");
                         int numeroPagine = scanner.nextInt();
-                        System.out.println("Inserisci l'autore: ");
-                        String autore = scanner.next();
-                        System.out.println("Inserisci il genere: ");
+                        System.out.println("Modifica l'autore: ");
+                        scanner.nextLine();
+                        String autore = scanner.nextLine();
+                        System.out.println("Modifica il genere: ");
                         String genere = scanner.next();
-                        archivio.modificaElemento(new Libri(codiceISBN, titolo, annoPubblicazione, numeroPagine, autore, genere));
-                    } else if (archivio.ricercaElemento(codiceISBN) instanceof Riviste) {
-                        System.out.println("Hai scelto di modificare una rivista: inserisci il titolo: ");
-                        String titolo = scanner.next();
-                        System.out.println("Inserisci l'anno di pubblicazione: ");
+                        archivio.modificaElemento(new Libri(codiceIsbnModify, titolo, annoPubblicazione, numeroPagine, autore, genere));
+                    } else if (archivio.tipoElemento(codiceIsbnModify) instanceof Riviste) {
+                        tipoElemento = 2;
+                        System.out.println("Stai modificando una Rivista: ");
+                        System.out.println("Modifica il titolo: ");
+                        scanner.nextLine();
+                        String titolo = scanner.nextLine();
+                        System.out.println("Modifica l'anno di pubblicazione: ");
                         int annoPubblicazione = scanner.nextInt();
-                        System.out.println("Inserisci il numero di pagine: ");
+                        System.out.println("Modifica il numero di pagine: ");
                         int numeroPagine = scanner.nextInt();
-                        System.out.println("Inserisci la periodicità - 1: Settimanale, 2: Mensile, 3: Semestrale");
+                        System.out.println("Modifica la periodicità - 1: Settimanale, 2: Mensile, 3: Semestrale");
                         int periodicita = scanner.nextInt();
                         Periodicita miaPeriodicita = null;
                         switch (periodicita) {
@@ -134,15 +149,14 @@ public class Main {
                                 System.out.println("Scelta non valida");
                                 break;
                         }
-                        archivio.modificaElemento(new Riviste(codiceISBN, titolo, annoPubblicazione, numeroPagine, miaPeriodicita));
-                    } else {
-                        System.out.println("Scelta non valida");
+                        archivio.modificaElemento(new Riviste(codiceIsbnModify, titolo, annoPubblicazione, numeroPagine, miaPeriodicita));
                     }
+
                     break;
                     case 4:
                     System.out.println("Hai scelto di cercare un elemento del catalogo: inserisci il codice ISBN: ");
-                    String codiceISBN2 = scanner.next();
-                    System.out.println(archivio.ricercaElemento(codiceISBN2));
+                    String codiceIsbn2 = scanner.next();
+                    archivio.ricercaElemento(codiceIsbn2);
                     break;
                     case 5:
                     System.out.println("Hai scelto di visualizzare le statistiche del catalogo: ");
@@ -151,21 +165,21 @@ public class Main {
                     case 6:
                     System.out.println("Hai scelto di visualizzare tutti gli elementi di un determinato anno: inserisci l'anno: ");
                     int anno = scanner.nextInt();
-                    System.out.println(archivio.ricercaPerAnno(anno));
+                    archivio.ricercaPerAnno(anno);
                     break;
                     case 7:
                     System.out.println("Hai scelto di visualizzare tutti gli elementi di un determinato genere: inserisci il genere: ");
                     String genere = scanner.next();
-                    System.out.println(archivio.ricercaPerGenere(genere));
+                    archivio.ricercaPerGenere(genere);
                     break;
                     case 8:
                     System.out.println("Hai scelto di visualizzare tutti gli elementi di un determinato autore: inserisci l'autore: ");
                     String autore = scanner.next();
-                    System.out.println(archivio.ricercaPerAutore(autore));
+                    archivio.ricercaPerAutore(autore);
                     break;
                     case 9:
                     System.out.println("Hai scelto di visualizzare tutti gli elementi del catalogo: ");
-                    StampaCatalogo.stampaListaCatalogo(archivio.getCatalogo());
+                    StampaElementi.stampaListaElementi(archivio.getCatalogoArchivio());
                     break;
 
 
