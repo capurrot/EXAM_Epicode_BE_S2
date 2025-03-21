@@ -11,6 +11,7 @@ import epicode.it.stampe.StampaStatistiche;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Archivio {
     List<CatalogoBiblioteca> catalogo = new ArrayList<>();
@@ -35,7 +36,7 @@ public class Archivio {
     public void rimuoviElemento(String elemento) {
         try {
             if (catalogo.stream().noneMatch(e -> e.getcodiceIsbn().equals(elemento))) {
-                throw new Exception("ISBN non presente nel catalogo" + elemento);
+                throw new Exception("ISBN non presente nel catalogo " + elemento);
             } else {
                 catalogo.removeIf(e -> e.getcodiceIsbn().equals(elemento));
                 System.out.println();
@@ -90,14 +91,14 @@ public class Archivio {
     public void ricercaPerAutore(String autore) {
         System.out.println("Elementi dell'autore " + autore);
         System.out.println();
-        catalogo.stream().filter(e -> e instanceof Libri && ((Libri) e).getAutore().contains(autore)).forEach(StampaElementi::stampaListaElementi);
+        catalogo.stream().filter(e -> e instanceof Libri && ((Libri) e).getAutore().toLowerCase().contains(autore)).forEach(StampaElementi::stampaListaElementi);
     }
 
     //metodo con ricerca per genere (è un'aggiunta rispetto alla traccia)
     public void ricercaPerGenere(String genere) {
         System.out.println("Elementi del genere " + genere);
         System.out.println();
-        catalogo.stream().filter(e -> e instanceof Libri && ((Libri) e).getGenere().contains(genere)).forEach(StampaElementi::stampaListaElementi);
+        catalogo.stream().filter(e -> e instanceof Libri && ((Libri) e).getGenere().toLowerCase().contains(genere)).forEach(StampaElementi::stampaListaElementi);
     }
 
     //metodo per statistiche del catalogo: numero totale di libri, numero totale di riviste, elemento con più pagine, media delle pagine di tutti gli elementi
