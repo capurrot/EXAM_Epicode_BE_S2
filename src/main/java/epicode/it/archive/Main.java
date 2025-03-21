@@ -181,10 +181,7 @@ public class Main {
                     System.out.println("Hai scelto di visualizzare tutti gli elementi del catalogo: ");
                     StampaElementi.stampaListaElementi(archivio.getCatalogoArchivio());
                     break;
-
-
                     case 0:
-                    System.out.println("Arrivederci!");
                     break;
                     default:
                     System.out.println("Scelta non valida");
